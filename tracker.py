@@ -36,7 +36,7 @@ def generate_code(locations=None):
     characters = string.ascii_uppercase
     characters = characters.replace("I", "")
     characters = characters.replace("O", "")
-
+    locations = Location.load_from_file("locations.json")
     if locations:
         while True:
             code = "{}{}".format(random.choice(characters),
@@ -51,17 +51,19 @@ def generate_code(locations=None):
 
 def add_item(item):
     items.append(item)
-
-    save()
+    with open('items.json', 'w') as f:
+        f.write(jsonpickle.encode(items))
 
 
 def add_location(location):
+    locations = Location.load_from_file("locations.json")
     if location.code:
         locations.append(location)
     else:
         location.code = generate_code(locations)
         locations.append(location)
-    save()
+    with open('locations.json', 'w') as f:
+        f.write(jsonpickle.encode(locations))
 
 
 def save():
