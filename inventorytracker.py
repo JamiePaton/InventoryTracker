@@ -9,6 +9,7 @@ import os
 import tracker
 import logging
 from msvcrt import getch
+import pprint
 
 TITLE = 'Inventory Tracker'
 VERSION = '0.0.1'
@@ -41,8 +42,9 @@ def imports():
 def main(args):
     while True:
         os.system('cls')
-        print "1.    add item"
+        print "1.    add item    --- NOT IMPLEMENTED YET"
         print "2.    add location"
+        print "3.    show locations"
         option = getch()
 #        option = raw_input(">>>")
         if option == "1":
@@ -52,6 +54,16 @@ def main(args):
             number = int(raw_input("enter number of locations at this description:\t"))
             for _ in xrange(number):
                 tracker.add_location(tracker.Location(description))
+        elif option == "3":
+            locations = tracker.Location.load_from_file('locations.json')
+            codes = {}
+            for location in locations:
+                if location.description not in codes:
+                    codes[location.description] = [location.code]
+                else:
+                    codes[location.description].append(location.code)
+            pprint.pprint(codes)
+            raw_input()
         elif option == "q":
             sys.exit()
         else:
