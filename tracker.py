@@ -10,6 +10,16 @@ VERSION = '0.0.1'
 AUTHOR = 'Jamie Paton'
 import jsonobject
 import logging
+import string
+import random
+
+characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+characters = characters.replace("I", "")
+characters = characters.replace("O", "")
+print characters
+
+print "{}{}".format(random.choice(string.ascii_uppercase), random.choice(string.ascii_uppercase))
+
 
 if __name__ == '__main__':
     print ''.join([TITLE, ' v', VERSION, ' ', AUTHOR])
